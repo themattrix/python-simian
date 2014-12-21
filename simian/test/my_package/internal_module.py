@@ -10,8 +10,8 @@ def my_fn():
 
 
 def internal_fn_a():
-    raise RuntimeError('internal_fn_a() should never be called')
+    raise RuntimeError('called internal_fn_a()')
 
 
 def internal_fn_b():
-    raise RuntimeError('internal_fn_b() should never be called')
+    raise RuntimeError('called internal_fn_b()')  # pragma: no cover

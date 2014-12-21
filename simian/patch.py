@@ -6,14 +6,14 @@ from itertools import chain
 try:
     # noinspection PyUnresolvedReferences
     from importlib import reload
-except ImportError:
-    try:
+except ImportError:  # pragma: no cover
+    try:  # pragma: no cover
         # noinspection PyUnresolvedReferences
-        from imp import reload
-    except ImportError:
+        from imp import reload  # pragma: no cover
+    except ImportError:  # pragma: no cover
         # Fall back to the built-in "reload", which should be present when not
         # contained in importlib or imp.
-        pass
+        pass  # pragma: no cover
 
 
 def patch(module, module_path, external=(), internal=()):
