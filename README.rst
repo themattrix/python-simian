@@ -1,7 +1,7 @@
 Simian
 ======
 
-|Build Status| |Coverage Status| |Code Health|
+|Build| |Coverage| |Health| |Version| |Downloads|
 
 A decorator for easily mocking out multiple dependencies by
 monkey-patching. Example:
@@ -57,9 +57,13 @@ monkey-patching. Example:
         assert master_mock.mock_calls == [
             call.expensive_fn()]
 
-.. |Build Status| image:: https://travis-ci.org/themattrix/python-simian.svg?branch=master
+.. |Build| image:: https://travis-ci.org/themattrix/python-simian.svg?branch=master
    :target: https://travis-ci.org/themattrix/python-simian
-.. |Coverage Status| image:: https://img.shields.io/coveralls/themattrix/python-simian.svg
+.. |Coverage| image:: https://img.shields.io/coveralls/themattrix/python-simian.svg
    :target: https://coveralls.io/r/themattrix/python-simian
-.. |Code Health| image:: https://landscape.io/github/themattrix/python-simian/master/landscape.svg
+.. |Health| image:: https://landscape.io/github/themattrix/python-simian/master/landscape.svg
    :target: https://landscape.io/github/themattrix/python-simian/master
+.. |Version| image:: https://pypip.in/version/simian/badge.svg?text=version
+    :target: https://pypi.python.org/pypi/simian
+.. |Downloads| image:: https://pypip.in/download/simian/badge.svg
+    :target: https://pypi.python.org/pypi/simian
