@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/themattrix/python-simian.svg?branch=master)](https://travis-ci.org/themattrix/python-simian)
 [![Coverage Status](https://img.shields.io/coveralls/themattrix/python-simian.svg)](https://coveralls.io/r/themattrix/python-simian)
+[![Code Health](https://landscape.io/github/themattrix/python-simian/master/landscape.svg)](https://landscape.io/github/themattrix/python-simian/master)
 
 A decorator for easily mocking out multiple dependencies by monkey-patching.
 Example:
