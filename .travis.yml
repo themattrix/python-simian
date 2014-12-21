@@ -19,6 +19,7 @@ deploy:
   password:
     secure: KTqcN7fqvrWpfbdsF1+awsi7zDLW/05A/iRzLdc8Qrrt3Opri1Z6w96X0E2/mXKn6/k/j15US8nJ+ZOUKo5nMs8grEO4614sYYnzcWj73/XfEJbwIkvYdC8ptroaEmgvqIgJ10iH1czWnE/1GiYAShCempaTHuvhAZ6LbHHV44o=
   on:
+    python: 3.4
     tags: true
     all_branches: true
     repo: themattrix/python-simian
