@@ -19,7 +19,7 @@ deploy:
   provider: pypi
   user: themattrix
   password:
-    secure: Iuq/qct1Oe/3BMahHv6pakhOj+BiHxCsUc8F5l/RMVqeSM9823qJaKhOgddo2B2dqRIrGvSgn3KsZDq97I46MjnhoyAKMY8OlIPpFieisjkUtq/xUAA08CmQd9Qu9tYkQg+S6dQscnrJMKxS1flj6zI8QETr+K7jmrwi250MuOk=
+    secure: h7OokmkAAyhLC6Q5k7KR7+uN4TARaskQmrfmkt/RYyP0UpUO/k/4zC1V+ipk0lC+oHtnSm7I8Ul9GRB28Sg5fKdSjyUXQEHYYsc1pv3YHrTWIGOjRqyBMAakAr2YALcqmkGk3uGDZ4Qp8w6S9c8lBL6HmdXEW9BHOKUKtefz/90=
   on:
     python: 2.7
     tags: true
