@@ -7,9 +7,13 @@ try:
     # noinspection PyUnresolvedReferences
     from importlib import reload
 except ImportError:
-    # Fall back to the built-in "reload", which should be present when not
-    # contained in importlib.
-    pass
+    try:
+        # noinspection PyUnresolvedReferences
+        from imp import reload
+    except ImportError:
+        # Fall back to the built-in "reload", which should be present when not
+        # contained in importlib or imp.
+        pass
 
 
 try:
