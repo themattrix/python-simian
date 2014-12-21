@@ -33,7 +33,7 @@ def test_patch_with_no_external(master_mock):
     try:
         internal_module.my_fn()
     except RuntimeError as e:
-        eq_(str(e), 'external_fn_a() should never be called')
+        eq_(str(e), 'called external_fn_a()')
         raise
 
 
@@ -48,7 +48,7 @@ def test_patch_with_no_internal(master_mock):
     try:
         internal_module.my_fn()
     except RuntimeError as e:
-        eq_(str(e), 'internal_fn_a() should never be called')
+        eq_(str(e), 'called internal_fn_a()')
         raise
 
 
@@ -60,7 +60,7 @@ def test_patch_with_no_internal_no_external(master_mock):
     try:
         internal_module.my_fn()
     except RuntimeError as e:
-        eq_(str(e), 'external_fn_a() should never be called')
+        eq_(str(e), 'called external_fn_a()')
         raise
 
 
@@ -69,5 +69,5 @@ def test_no_patch():
     try:
         internal_module.my_fn()
     except RuntimeError as e:
-        eq_(str(e), 'external_fn_a() should never be called')
+        eq_(str(e), 'called external_fn_a()')
         raise
