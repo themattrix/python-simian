@@ -2,7 +2,7 @@ import mock
 from contextlib2 import ExitStack, contextmanager
 from functools import wraps
 from itertools import chain
-from simian.reload import reload
+from simian.reload import reload as reload_module
 
 
 def patch(module, module_path, external=(), internal=()):
@@ -42,7 +42,7 @@ def patch(module, module_path, external=(), internal=()):
                 with __nested(patch_external(n) for n in external):
                     # Reload the module to ensure that patched external
                     # dependencies are accounted for.
-                    reload(module)
+                    reload_module(module)
 
                     # Patch objects in the module itself.
                     with __nested(patch_internal(n) for n in internal):
@@ -51,7 +51,7 @@ def patch(module, module_path, external=(), internal=()):
                 # When all patches have been discarded, reload the module to
                 # bring it back to its original state (except for all of the
                 # references which have been reassigned).
-                reload(module)
+                reload_module(module)
         return wrapper
     return decorator
 
