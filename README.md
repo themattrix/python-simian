@@ -1,5 +1,8 @@
 # Simian
 
+[![Build Status](https://travis-ci.org/themattrix/python-simian.svg?branch=master)](https://travis-ci.org/themattrix/python-simian)
+[![Coverage Status](https://img.shields.io/coveralls/themattrix/python-simian.svg)](https://coveralls.io/r/themattrix/python-simian)
+
 A decorator for easily mocking out multiple dependencies by monkey-patching.
 Example:
 
