@@ -8,8 +8,14 @@ setup(
     license='MIT',
     author='Matthew Tardiff',
     author_email='mattrix@gmail.com',
-    install_requires=('mock',),
+    install_requires=('mock', 'contextlib2'),
     tests_require=('nose', 'flake8'),
     description=(
         'A decorator for easily mocking out multiple dependencies by '
-        'monkey-patching.'))
+        'monkey-patching.'),
+    classifiers=(
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4'))

@@ -1,5 +1,5 @@
 import mock
-from contextlib import contextmanager
+from contextlib2 import ExitStack, contextmanager
 from functools import wraps
 from itertools import chain
 
@@ -14,22 +14,6 @@ except ImportError:
         # Fall back to the built-in "reload", which should be present when not
         # contained in importlib or imp.
         pass
-
-
-try:
-    # noinspection PyUnresolvedReferences
-    from contextlib import ExitStack
-
-    @contextmanager
-    def nested(context_managers):
-        with ExitStack() as stack:
-            yield tuple(stack.enter_context(c) for c in context_managers)
-
-except ImportError:
-    # Fall back to the deprecated "nested" implementation, which should be good
-    # enough for our purposes.
-    # noinspection PyUnresolvedReferences
-    from contextlib import nested
 
 
 def patch(module, module_path, external=(), internal=()):
@@ -66,13 +50,13 @@ def patch(module, module_path, external=(), internal=()):
         @wraps(fn)
         def wrapper(*args, **kwargs):
             try:
-                with nested(patch_external(n) for n in external):
+                with __nested(patch_external(n) for n in external):
                     # Reload the module to ensure that patched external
                     # dependencies are accounted for.
                     reload(module)
 
                     # Patch objects in the module itself.
-                    with nested(patch_internal(n) for n in internal):
+                    with __nested(patch_internal(n) for n in internal):
                         return fn(master_mock, *args, **kwargs)
             finally:
                 # When all patches have been discarded, reload the module to
@@ -85,3 +69,9 @@ def patch(module, module_path, external=(), internal=()):
 
 def __patch_name(long_name):
     return long_name.split('.')[-1]
+
+
+@contextmanager
+def __nested(context_managers):
+    with ExitStack() as stack:
+        yield tuple(stack.enter_context(c) for c in context_managers)

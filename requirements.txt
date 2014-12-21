@@ -1,3 +1,4 @@
 nose
 mock
 flake8
+contextlib2
