@@ -20,6 +20,7 @@ deploy:
   user: themattrix
   password:
     secure: h7OokmkAAyhLC6Q5k7KR7+uN4TARaskQmrfmkt/RYyP0UpUO/k/4zC1V+ipk0lC+oHtnSm7I8Ul9GRB28Sg5fKdSjyUXQEHYYsc1pv3YHrTWIGOjRqyBMAakAr2YALcqmkGk3uGDZ4Qp8w6S9c8lBL6HmdXEW9BHOKUKtefz/90=
+  distributions: sdist bdist_wheel
   on:
     python: 2.7
     tags: true

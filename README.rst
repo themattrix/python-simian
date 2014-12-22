@@ -2,6 +2,7 @@ Simian
 ======
 
 |Build| |Coverage| |Health| |Version| |Downloads|
+|Compatibility| |Implementations| |Format|
 
 A decorator for easily mocking out multiple dependencies by
 monkey-patching. Example:
@@ -66,4 +67,10 @@ monkey-patching. Example:
 .. |Version| image:: https://pypip.in/version/simian/badge.svg?text=version
     :target: https://pypi.python.org/pypi/simian
 .. |Downloads| image:: https://pypip.in/download/simian/badge.svg
+    :target: https://pypi.python.org/pypi/simian
+.. |Compatibility| image:: https://pypip.in/py_versions/simian/badge.svg
+    :target: https://pypi.python.org/pypi/simian
+.. |Implementations| image:: https://pypip.in/implementation/simian/badge.svg
+    :target: https://pypi.python.org/pypi/simian
+.. |Format| image:: https://pypip.in/format/simian/badge.svg
     :target: https://pypi.python.org/pypi/simian
