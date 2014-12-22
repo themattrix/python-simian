@@ -20,26 +20,26 @@ def patch(module, module_path=None, external=(), internal=()):
         raise ValueError('"module_path" must be set for "internal" targets')
 
     def decorator(fn):
-        # The master mock is used to contain all of the sub-mocks. It is a
-        # useful container and can also be used to determine the order of calls
-        # to all sub-mocks.
-        master_mock = mock.MagicMock()
-
-        def get_mock(name):
-            return getattr(master_mock, __patch_name(name))
-
-        # Create a mock object under the master mock for each patched item.
-        for n in chain(external, internal):
-            get_mock(n)
-
-        def patch_external(name):
-            return mock.patch(name, get_mock(name))
-
-        def patch_internal(name):
-            return mock.patch('.'.join((module_path, name)), get_mock(name))
-
         @wraps(fn)
         def wrapper(*args, **kwargs):
+            # The master mock is used to contain all of the sub-mocks. It is a
+            # useful container and can also be used to determine the order of
+            # calls to all sub-mocks.
+            master_mock = mock.MagicMock()
+
+            def get_mock(name):
+                return getattr(master_mock, __patch_name(name))
+
+            # Create a mock object under the master mock for each patched item.
+            for n in chain(external, internal):
+                get_mock(n)
+
+            def patch_external(name):
+                return mock.patch(name, get_mock(name))
+
+            def patch_internal(name):
+                return mock.patch(module_path + '.' + name, get_mock(name))
+
             try:
                 with __nested(patch_external(n) for n in external):
                     # Reload the module to ensure that patched external

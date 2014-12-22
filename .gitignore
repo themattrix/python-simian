@@ -55,3 +55,6 @@ target/
 
 # Virtual environment
 .env
+
+# PyCharm
+.idea
