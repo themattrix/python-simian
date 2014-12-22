@@ -1,9 +1,5 @@
-Simian
-======
-
-|Version|
-
-|Build| |Coverage| |Health|
+Simian |Version| |Build| |Coverage| |Health|
+============================================
 
 |Compatibility| |Implementations| |Format| |Downloads|
 
