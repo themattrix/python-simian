@@ -22,7 +22,7 @@ def test_patch_with_multiple_arguments():
             call.external_fn_b(),
             call.internal_fn_a(),
             call.internal_fn_b()])
-    inner()
+    inner()  # pylint: disable=E1120
 
 
 @raises(RuntimeError)
@@ -40,7 +40,7 @@ def test_patch_with_no_external():
             eq_(str(e), 'called external_fn_a()')
             eq_(master_mock.mock_calls, [])
             raise
-    inner()
+    inner()  # pylint: disable=E1120
 
 
 @raises(ValueError)
@@ -75,7 +75,7 @@ def test_patch_with_no_internal():
                 call.external_fn_a(),
                 call.external_fn_b()])
             raise
-    inner()
+    inner()  # pylint: disable=E1120
 
 
 def test_patch_with_internal_restores_targets():
@@ -96,11 +96,7 @@ def test_patch_with_internal_restores_targets():
             call.internal_fn_a(),
             call.internal_fn_b()])
 
-    @raises(RuntimeError)
-    def ensure_target_unpatched(target):
-        target()
-
-    inner()
+    inner()  # pylint: disable=E1120
 
     @raises(RuntimeError)
     def ensure_target_unpatched(target):
@@ -144,7 +140,7 @@ def test_patch_with_no_internal_no_external():
             eq_(str(e), 'called external_fn_a()')
             eq_(master_mock.mock_calls, [])
             raise
-    inner()
+    inner()  # pylint: disable=E1120
 
 
 @raises(RuntimeError)
