@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='simian',
-    version='1.0.2',
+    version='1.0.3',
     packages=('simian',),
     url='https://github.com/themattrix/python-simian',
     license='MIT',
@@ -14,6 +14,7 @@ setup(
         'A decorator for easily mocking out multiple dependencies by '
         'monkey-patching.'),
     classifiers=(
+        'Topic :: Software Development :: Testing',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
