@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='simian',
-    version='1.0.3',
+    version='1.0.4',
     packages=('simian',),
     url='https://github.com/themattrix/python-simian',
     license='MIT',
