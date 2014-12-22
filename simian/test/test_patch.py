@@ -47,8 +47,8 @@ def test_patch_with_internal_but_no_module_path():
                 'internal_fn_a',
                 'internal_fn_b'))
         def never_called(master_mock):
-            assert not master_mock  # silence PyFlakes, never actually run
-        assert never_called         # silence PyFlakes, never actually run
+            assert not master_mock  # pragma: no cover
+        assert never_called         # pragma: no cover
     except ValueError as e:
         eq_(str(e), '"module_path" must be set for "internal" targets')
         raise
