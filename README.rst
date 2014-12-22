@@ -19,9 +19,9 @@ For example:
     #
     # my_package.my_module
     #
-    
+
     from time import sleep
-    
+
     def my_sleep(duration_secs):
         print('Sleeping for {duration} seconds'.format(duration=duration_secs))
         sleep(duration_secs)
@@ -34,7 +34,7 @@ For example:
     import simian
     from my_package import my_module
 
-    @simian.patch(my_module, 'my_package.my_module', external=['time.sleep'])
+    @simian.patch(my_module, external=['time.sleep'])
     def test_my_sleep(master_mock):
         my_module.my_sleep(99)
         master_mock.sleep.assert_called_once_with(99)
@@ -45,7 +45,7 @@ Note several things about ``time.sleep`` in the above example:
 * It is patched and provided to the test as ``master_mock.sleep``.
 * The patching works despite ``my_sleep`` calling ``sleep`` directly,
   as opposed to calling the fully-qualified ``time.sleep``.
-  
+
 The second point works because ``simian.patch`` reloads the given
 module *after* patching all of the external targets. It reloads the
 module *again* after leaving the decorated function, bringing the

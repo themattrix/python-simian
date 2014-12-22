@@ -5,7 +5,7 @@ from itertools import chain
 from simian.reload import reload as reload_module
 
 
-def patch(module, module_path, external=(), internal=()):
+def patch(module, module_path=None, external=(), internal=()):
     """
     Temporarily monkey-patch dependencies which can be external to, or internal
     to the supplied module.
@@ -16,6 +16,8 @@ def patch(module, module_path, external=(), internal=()):
     :param internal: Internal dependencies to patch (short names as strings)
     :return:
     """
+    if internal and not module_path:
+        raise ValueError('"module_path" must be set for "internal" targets')
 
     def decorator(fn):
         # The master mock is used to contain all of the sub-mocks. It is a

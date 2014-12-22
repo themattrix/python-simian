@@ -38,10 +38,25 @@ def test_patch_with_no_external(master_mock):
         raise
 
 
+@raises(ValueError)
+def test_patch_with_internal_but_no_module_path():
+    try:
+        @patch(
+            module=internal_module,
+            internal=(
+                'internal_fn_a',
+                'internal_fn_b'))
+        def never_called(master_mock):
+            assert not master_mock  # silence PyFlakes, never actually run
+        assert never_called         # silence PyFlakes, never actually run
+    except ValueError as e:
+        eq_(str(e), '"module_path" must be set for "internal" targets')
+        raise
+
+
 @raises(RuntimeError)
 @patch(
     module=internal_module,
-    module_path='simian.test.my_package.internal_module',
     external=(
         'simian.test.my_package.external_module.external_fn_a',
         'simian.test.my_package.external_module.external_fn_b'))
@@ -57,9 +72,7 @@ def test_patch_with_no_internal(master_mock):
 
 
 @raises(RuntimeError)
-@patch(
-    module=internal_module,
-    module_path='simian.test.my_package.internal_module')
+@patch(module=internal_module)
 def test_patch_with_no_internal_no_external(master_mock):
     try:
         internal_module.my_fn()
