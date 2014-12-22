@@ -1,8 +1,11 @@
 Simian
 ======
 
-|Build| |Coverage| |Health| |Version| |Downloads|
-|Compatibility| |Implementations| |Format|
+|Version|
+
+|Build| |Coverage| |Health|
+
+|Compatibility| |Implementations| |Format| |Downloads|
 
 A decorator for easily mocking out multiple dependencies by
 monkey-patching. Example:
