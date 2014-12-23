@@ -8,4 +8,4 @@ def my_sleep(duration_secs):
 
 
 def my_logger(msg):
-    print(msg)
+    print(msg)  # pragma: no cover
