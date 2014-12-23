@@ -1,7 +1,6 @@
 import mock
 from contextlib2 import ExitStack, contextmanager
 from functools import wraps
-from itertools import chain
 from simian.reload import reload as reload_module
 
 
@@ -29,10 +28,6 @@ def patch(module, module_path=None, external=(), internal=()):
 
             def get_mock(name):
                 return getattr(master_mock, __patch_name(name))
-
-            # Create a mock object under the master mock for each patched item.
-            for n in chain(external, internal):
-                get_mock(n)
 
             def patch_external(name):
                 return mock.patch(name, get_mock(name))
