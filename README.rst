@@ -6,13 +6,33 @@ Simian |Version| |Build| |Coverage| |Health|
 A decorator for easily mocking out multiple dependencies by
 monkey-patching.
 
-``simian.patch`` is a wrapper around `mock.patch`_ to allow
-for convenient patching of multiple targets in a single decorator.
-All resulting patched objects are collected under a single
-``master_mock`` object, which is provided to the function being
-decorated.
+.. code:: python
 
-For example:
+    @simian.patch(module=..., module_path=..., external=(...), internal=(...))
+
+
+``simian.patch`` is a convenience wrapper around `mock.patch`_ with the
+following benefits:
+
+1. All patched objects are collected under a single ``master_mock``, which is
+   provided to the function being decorated. Any patched target can be
+   accessed by its basename (e.g., a patched ``time.sleep`` would be
+   accessed in the decorated function as ``master_mock.sleep``).
+2. The patching works even if the target is imported directly (e.g., a call to
+   ``sleep`` is patched the same as a call to ``time.sleep``). Simian handles
+   this by reloading the module under test after applying the ``external``
+   patches.
+3. Objects ``internal`` to the module under test can be patched as well. They
+   are collected under the same ``master_mock`` and can be referenced in the
+   same way.
+
+After leaving the decorated function, simian reloads the module under test
+*again*, bringing it back to its pre-patched state (although all of the
+module's addresses in memory have changed).
+
+
+External Patching
+-----------------
 
 .. code:: python
 
@@ -42,19 +62,11 @@ For example:
         master_mock.sleep.assert_called_once_with(99)
 
 
-Note several things about ``time.sleep`` in the above example:
-
-* It is patched and provided to the test as ``master_mock.sleep``.
-* The patching works despite ``my_sleep`` calling ``sleep`` directly,
-  as opposed to calling the fully-qualified ``time.sleep``.
-
-The second point works because ``simian.patch`` reloads the given
-module *after* patching all of the external targets. It reloads the
-module *again* after leaving the decorated function, bringing the
-module back to its pre-patched state.
+Internal *and* External Patching
+--------------------------------
 
 The above example demonstrates ``external`` patching, but ``internal``
-(same-module) patching works as well. Let's extend the above example:
+(same-module) patching works as well. Let's extend the above example.
 
 .. code:: python
 
@@ -101,6 +113,7 @@ The above example demonstrates ``external`` patching, but ``internal``
 
 Note that when ``internal`` targets are supplied, the full path to the module
 under test must also be supplied (in this case, ``"my_package.my_module"``).
+Simian uses this string to build the full target path.
 
 
 Installation
