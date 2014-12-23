@@ -8,7 +8,14 @@ monkey-patching.
 
 .. code:: python
 
-    @simian.patch(module=..., module_path=..., external=(...), internal=(...))
+    @simian.patch(module=..., module_path=..., external=[...], internal=[...])
+
+
+To install:
+
+.. code:: shell
+
+    $ pip install simian
 
 
 ``simian.patch`` is a convenience wrapper around `mock.patch`_ with the
@@ -114,14 +121,6 @@ The above example demonstrates ``external`` patching, but ``internal``
 Note that when ``internal`` targets are supplied, the full path to the module
 under test must also be supplied (in this case, ``"my_package.my_module"``).
 Simian uses this string to build the full target path.
-
-
-Installation
-------------
-
-.. code:: shell
-
-    $ pip install simian
 
 
 .. |Build| image:: https://travis-ci.org/themattrix/python-simian.svg?branch=master
