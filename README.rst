@@ -11,7 +11,7 @@ monkey-patching.
     @simian.patch(module=..., module_path=..., external=[...], internal=[...])
 
 
-To install:
+Installation:
 
 .. code:: shell
 
@@ -69,8 +69,8 @@ External Patching
         master_mock.sleep.assert_called_once_with(99)
 
 
-Internal *and* External Patching
---------------------------------
+Internal Patching
+-----------------
 
 The above example demonstrates ``external`` patching, but ``internal``
 (same-module) patching works as well. Let's extend the above example.

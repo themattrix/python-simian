@@ -15,6 +15,9 @@ def patch(module, module_path=None, external=(), internal=()):
     :param internal: Internal dependencies to patch (short names as strings)
     :return:
     """
+    external = tuple(external)
+    internal = tuple(internal)
+
     if internal and not module_path:
         raise ValueError('"module_path" must be set for "internal" targets')
 
@@ -37,18 +40,20 @@ def patch(module, module_path=None, external=(), internal=()):
 
             try:
                 with __nested(patch_external(n) for n in external):
-                    # Reload the module to ensure that patched external
-                    # dependencies are accounted for.
-                    reload_module(module)
+                    if external:
+                        # Reload the module to ensure that patched external
+                        # dependencies are accounted for.
+                        reload_module(module)
 
                     # Patch objects in the module itself.
                     with __nested(patch_internal(n) for n in internal):
                         return fn(master_mock, *args, **kwargs)
             finally:
-                # When all patches have been discarded, reload the module to
-                # bring it back to its original state (except for all of the
-                # references which have been reassigned).
-                reload_module(module)
+                if external:
+                    # When all patches have been discarded, reload the module
+                    # to bring it back to its original state (except for all of
+                    # the references which have been reassigned).
+                    reload_module(module)
         return wrapper
     return decorator
 
