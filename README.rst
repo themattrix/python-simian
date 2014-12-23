@@ -22,8 +22,9 @@ For example:
 
     from time import sleep
 
+
     def my_sleep(duration_secs):
-        print('Sleeping for {duration} seconds'.format(duration=duration_secs))
+        print('Sleeping for {n} seconds'.format(n=duration_secs))
         sleep(duration_secs)
 
 
@@ -33,6 +34,7 @@ For example:
 
     import simian
     from my_package import my_module
+
 
     @simian.patch(my_module, external=['time.sleep'])
     def test_my_sleep(master_mock):
@@ -62,13 +64,15 @@ The above example demonstrates ``external`` patching, but ``internal``
 
     from time import sleep
 
+
     def my_sleep(duration_secs):
         my_logger('Starting {n}-second sleep'.format(n=duration_secs))
         sleep(duration_secs)
         my_logger('Finished {n}-second sleep'.format(n=duration_secs))
 
+
     def my_logger(msg):
-        ...
+        print(msg)
 
 
     #
@@ -76,7 +80,9 @@ The above example demonstrates ``external`` patching, but ``internal``
     #
 
     import simian
+    from mock import call
     from my_package import my_module
+
 
     @simian.patch(
         my_module,
@@ -92,8 +98,17 @@ The above example demonstrates ``external`` patching, but ``internal``
                 call.my_logger('Finished 99-second sleep')],
             any_order=False)
 
+
 Note that when ``internal`` targets are supplied, the full path to the module
-under test must also be supplied (in this case, ``my_package.my_module``).
+under test must also be supplied (in this case, ``"my_package.my_module"``).
+
+
+Installation
+------------
+
+.. code:: shell
+
+    $ pip install simian
 
 
 .. |Build| image:: https://travis-ci.org/themattrix/python-simian.svg?branch=master
