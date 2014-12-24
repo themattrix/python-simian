@@ -8,7 +8,6 @@ from simian.test.my_package import external_module
 def test_patch_with_multiple_arguments():
     @patch(
         module=internal_module,
-        module_path='simian.test.my_package.internal_module',
         external=(
             'simian.test.my_package.external_module.external_fn_a',
             'simian.test.my_package.external_module.external_fn_b'),
@@ -29,7 +28,6 @@ def test_patch_with_multiple_arguments():
 def test_patch_with_no_external():
     @patch(
         module=internal_module,
-        module_path='simian.test.my_package.internal_module',
         internal=(
             'internal_fn_a',
             'internal_fn_b'))
@@ -46,7 +44,6 @@ def test_patch_with_no_external():
 def test_patch_with_no_external_does_not_reload():
     @patch(
         module=internal_module,
-        module_path='simian.test.my_package.internal_module',
         internal=(
             'internal_fn_a',
             'internal_fn_b'))
@@ -68,22 +65,6 @@ def test_patch_with_no_external_does_not_reload():
     eq_(internal_fn_b, internal_module.internal_fn_b)
     eq_(external_fn_a, external_module.external_fn_a)
     eq_(external_fn_b, external_module.external_fn_b)
-
-
-@raises(ValueError)
-def test_patch_with_internal_but_no_module_path():
-    try:
-        @patch(
-            module=internal_module,
-            internal=(
-                'internal_fn_a',
-                'internal_fn_b'))
-        def never_called(master_mock):
-            assert not master_mock  # pragma: no cover
-        assert never_called         # pragma: no cover
-    except ValueError as e:
-        eq_(str(e), '"module_path" must be set for "internal" targets')
-        raise
 
 
 @raises(RuntimeError)
@@ -108,7 +89,6 @@ def test_patch_with_no_internal():
 def test_patch_with_internal_restores_targets():
     @patch(
         module=internal_module,
-        module_path='simian.test.my_package.internal_module',
         external=(
             'simian.test.my_package.external_module.external_fn_a',
             'simian.test.my_package.external_module.external_fn_b'),
@@ -138,7 +118,6 @@ def test_patch_with_internal_restores_targets():
 def test_patch_with_test_generator_targets():
     @patch(
         module=internal_module,
-        module_path='simian.test.my_package.internal_module',
         external=(
             'simian.test.my_package.external_module.external_fn_a',
             'simian.test.my_package.external_module.external_fn_b'),
@@ -177,7 +156,6 @@ def test_patch_with_generated_targets():
     # noinspection PyUnresolvedReferences
     @patch(
         module=internal_module,
-        module_path='simian.test.my_package.internal_module',
         external=(external_format.format(c=c) for c in 'ab'),
         internal=(internal_format.format(c=c) for c in 'ab'))
     def inner(master_mock):

@@ -4,22 +4,18 @@ from functools import wraps
 from simian.reload import reload as reload_module
 
 
-def patch(module, module_path=None, external=(), internal=()):
+def patch(module, external=(), internal=()):
     """
     Temporarily monkey-patch dependencies which can be external to, or internal
     to the supplied module.
 
     :param module: Module object
-    :param module_path: Full module path (as a string)
     :param external: External dependencies to patch (full paths as strings)
     :param internal: Internal dependencies to patch (short names as strings)
     :return:
     """
     external = tuple(external)
     internal = tuple(internal)
-
-    if internal and not module_path:
-        raise ValueError('"module_path" must be set for "internal" targets')
 
     def decorator(fn):
         @wraps(fn)
@@ -36,7 +32,7 @@ def patch(module, module_path=None, external=(), internal=()):
                 return mock.patch(name, get_mock(name))
 
             def patch_internal(name):
-                return mock.patch(module_path + '.' + name, get_mock(name))
+                return mock.patch(module.__name__ + '.' + name, get_mock(name))
 
             try:
                 with __nested(patch_external(n) for n in external):

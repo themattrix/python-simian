@@ -8,7 +8,7 @@ monkey-patching.
 
 .. code:: python
 
-    @simian.patch(module=..., module_path=..., external=[...], internal=[...])
+    @simian.patch(module=..., external=[...], internal=[...])
 
 
 Installation:
@@ -103,11 +103,7 @@ The above example demonstrates ``external`` patching, but ``internal``
     from my_package import my_module
 
 
-    @simian.patch(
-        my_module,
-        'my_package.my_module',
-        external=['time.sleep'],
-        internal=['my_logger'])
+    @simian.patch(my_module, external=['time.sleep'], internal=['my_logger'])
     def test_my_sleep(master_mock):
         my_module.my_sleep(99)
         master_mock.assert_has_calls(
@@ -116,11 +112,6 @@ The above example demonstrates ``external`` patching, but ``internal``
                 call.sleep(99),
                 call.my_logger('Finished 99-second sleep')],
             any_order=False)
-
-
-Note that when ``internal`` targets are supplied, the full path to the module
-under test must also be supplied (in this case, ``"my_package.my_module"``).
-Simian uses this string to build the full target path.
 
 
 .. |Build| image:: https://travis-ci.org/themattrix/python-simian.svg?branch=master
